@@ -1,16 +1,21 @@
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import nextArrowIcon from "@assets/images/icons/next-arrow.png"
-import ProjectCard from "../ProjectCard/ProjectCard";
-import ProjectItemsStyleWrapper from "./ProjectItems.style";
-import projectsData from "@assets/data/projects/dataV6";
-
-import coinIcon1 from "@assets/images/project/previous-image.png"
-import coinIcon2 from "@assets/images/project/previous-image2.png"
-import coinIcon3 from "@assets/images/project/previous-image3.png"
-import coinIcon4 from "@assets/images/project/chain.png"
+import { useState, useEffect } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import nextArrowIcon from '@assets/images/icons/next-arrow.png';
+import ProjectCard from '../ProjectCard/ProjectCard';
+import ProjectItemsStyleWrapper from './ProjectItems.style';
+import axios from 'axios';
 
 const ProjectItems = () => {
-  const { data } = projectsData    
+  const [icos, setIcos] = useState({ upcomingICOs: [], activeICOs: [], inactiveICOs: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('/api/category/handler');
+      setIcos(response.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <ProjectItemsStyleWrapper>
       <div className="container">
@@ -27,11 +32,9 @@ const ProjectItems = () => {
           <Tabs>
             <TabList>
               <div className="tab_btn_wrapper">
-                {data?.map((project, i) => (
-                  <Tab key={i}>
-                    <button>
-                      {project.projectName}
-                    </button>
+                {['upcoming', 'active', 'inactive'].map((status) => (
+                  <Tab key={status}>
+                    <button>{status}</button>
                   </Tab>
                 ))}
               </div>
@@ -50,27 +53,38 @@ const ProjectItems = () => {
                   All Block Chain
                   <img src={nextArrowIcon.src} alt="icon" />
                   <ul className="sub-menu">
-                    <li><img src={coinIcon1.src} alt="icon" /> Binance (BSC)</li>
-                    <li><img src={coinIcon2.src} alt="icon" /> Ethereum (ETH)</li>
-                    <li><img src={coinIcon3.src} alt="icon" /> Polygon</li>
-                    <li><img src={coinIcon4.src} alt="icon" /> All Block Chain</li>
+                    <li>Binance (BSC)</li>
+                    <li>Ethereum (ETH)</li>
+                    <li>Polygon</li>
+                    <li>All Block Chain</li>
                   </ul>
                 </button>
               </div>
             </TabList>
-
-            {data?.map((item, i) => (
-              <TabPanel key={i} className="row tabs-row">
-                {item.projects?.map((project, i) => (
-                  <div key={i} className="col-md-12">
-                    <ProjectCard {...project} />
-                  </div>
-                ))}
-              </TabPanel>
+            {['upcoming', 'active', 'inactive'].map((status) => (
+             <TabPanel key={status} className="row tabs-row" tabid={status}>
+             {icos[`${status}ICOs`].length > 0 ? (
+               icos[`${status}ICOs`].map((ico, i) => (
+                 <div key={i} className="col-md-12">
+                   <ProjectCard
+                     name={ico.name}
+                     iconUrl={ico.iconUrl}
+                     category={ico.category}
+                     start={ico.start}
+                     end={ico.end}
+                     goal={ico.goal}
+                     raisedAmount={ico.raisedAmount}
+                     interest={ico.interest}
+                     status={ico.status}
+                   />
+                 </div>
+               ))
+             ) : (
+               <div>Aucun projet disponible pour le moment.</div>
+             )}
+           </TabPanel>
             ))}
-
           </Tabs>
-
         </div>
       </div>
     </ProjectItemsStyleWrapper>

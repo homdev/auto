@@ -55,6 +55,12 @@ const ProjectCardStyleWrapper = styled.div`
     width: 36%;
   }
 
+  .previous-image {
+    img {
+      width: 80px;
+      border-radius: 50%;
+    }
+  }
   .previous-price {
     h4 {
       margin-bottom: 10px;

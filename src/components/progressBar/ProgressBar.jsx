@@ -4,7 +4,7 @@ const ProgressBar = ({progress}) => {
   return (
     <ProgressBarStyle className="progressbar_wrapper">
       <div className="progress_bar">
-        <span className="progress_bar_overlay" style={{width: progress ? progress : '0%'}}></span>
+        <span className="progress_bar_overlay" style={{width: progress ? progress : '50'}}></span>
       </div>
     </ProgressBarStyle>
   );
