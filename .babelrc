@@ -1,0 +1,16 @@
+{
+    "presets": ["next/babel"],
+    "env": {
+      "development": {
+        "plugins": [["styled-components", { "ssr": true }]]
+      },
+      "production": {
+        "plugins": [["styled-components", { "ssr": true }]]
+      },
+      "test": {
+        "plugins": [["styled-components", { "ssr": true }]]
+      }
+    },
+    "sourceType": "module"
+  }
+  

@@ -10,16 +10,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apify-client": "^2.6.3",
     "axios": "^1.3.3",
+    "axios-retry": "^3.4.0",
     "cheerio": "^1.0.0-rc.12",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "json2csv": "^6.0.0-alpha.2",
     "mongoose": "^6.9.2",
     "next": "13.1.6",
     "next-compose-plugins": "^2.2.1",
     "next-plausible": "^3.7.1",
     "node-cache": "^5.1.2",
+    "node-cron": "^3.0.2",
+    "objects-to-csv": "^1.3.6",
+    "playwright": "^1.31.1",
+    "playwright-proxy": "^1.0.0",
     "react": "18.2.0",
     "react-accessible-accordion": "^5.0.0",
     "react-animations": "^1.0.0",
@@ -34,6 +44,7 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.1",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "vercel": "^28.15.0"
