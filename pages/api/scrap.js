@@ -1,13 +1,14 @@
-const { scrapAndSave } = require('../../lib/scraping');
+// pages/api/scrap.js
+
+
+import { getAllCars } from '../../lib/database';
 
 export default async function handler(req, res) {
-  const { page, perPage } = req.query;
-
-  const cars = await scrapAndSave(3); // scrape 3 pages and save to database
-
-  const start = (page - 1) * perPage;
-  const end = start + perPage;
-  const carsOnPage = cars.slice(start, end);
-
-  res.status(200).json(carsOnPage);
+  try {
+    const cars = await getAllCars();
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error('Error retrieving cars:', error);
+    res.status(500).json({ error: 'An error occurred while retrieving cars.' });
+  }
 }
