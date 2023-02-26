@@ -3,7 +3,8 @@
   width: 100%;
 }
 
-.table-container th, .table-container td {
+.table-container th,
+.table-container td {
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -12,4 +13,11 @@
   background-color: #f2f2f2;
   color: #333;
   text-align: left;
+  position: sticky;
+  top: 0;
+}
+
+.table-container tbody {
+  overflow-y: auto;
+  max-height: 500px;
 }
